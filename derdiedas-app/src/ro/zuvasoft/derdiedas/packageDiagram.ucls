@@ -1,0 +1,410 @@
+<class-diagram version="1.0.9" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="false" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.graphics.DecoratedTextView" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/graphics/DecoratedTextView.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="110" y="169"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="android.widget.TextView" project="derdiedas-app" 
+    file="D:/Work/Android SDK/platforms/android-15/android.jar" binary="true">    
+    <position height="-1" width="-1" x="110" y="9"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.counter.CounterController" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/counter/CounterController.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1005" y="641"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.counter.DefaultCounter" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/counter/DefaultCounter.java" binary="false">    
+    <position height="-1" width="-1" x="990" y="755"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="5" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.counter.ICounter" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/counter/ICounter.java" binary="false">    
+    <position height="-1" width="-1" x="1212" y="593"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="true" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <interface id="6" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.counter.ICounterListener" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/counter/ICounterListener.java" binary="false">    
+    <position height="-1" width="-1" x="1182" y="816"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.database.WordProvider" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/database/WordProvider.java" binary="false">    
+    <position height="-1" width="-1" x="287" y="169"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="android.content.ContentProvider" project="derdiedas-app" 
+    file="D:/Work/Android SDK/platforms/android-15/android.jar" binary="true">    
+    <position height="-1" width="-1" x="286" y="14"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" 
+    name="ro.zuvasoft.derdiedas.database.ArticleSubjectSQLiteOpenHelper" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/database/ArticleSubjectSQLiteOpenHelper.java" binary="false">    
+    <position height="-1" width="-1" x="513" y="170"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="10" corner="BOTTOM_RIGHT" language="java" name="android.database.sqlite.SQLiteOpenHelper" 
+    project="derdiedas-app" file="D:/Work/Android SDK/platforms/android-15/android.jar" binary="true">    
+    <position height="-1" width="-1" x="514" y="25"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="11" corner="BOTTOM_RIGHT" language="java" 
+    name="ro.zuvasoft.derdiedas.articlesubject.IArticleSubjectModel" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/articlesubject/IArticleSubjectModel.java" binary="false">    
+    <position height="-1" width="-1" x="370" y="1026"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" 
+    name="ro.zuvasoft.derdiedas.articlesubject.DefaultArticleSubjectModel" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/articlesubject/DefaultArticleSubjectModel.java" binary="false">    
+    <position height="-1" width="-1" x="124" y="660"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" 
+    name="ro.zuvasoft.derdiedas.articlesubject.StatefullArticleSubjectModel" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/articlesubject/StatefullArticleSubjectModel.java" binary="false">    
+    <position height="-1" width="-1" x="271" y="723"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="14" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.core.IArticleSubjectListener" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/core/IArticleSubjectListener.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1084" y="416"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.articlesubject.ArticleButtonListener" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/articlesubject/ArticleButtonListener.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="382" y="651"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" 
+    name="ro.zuvasoft.derdiedas.articlesubject.StartNewSessionListener" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/articlesubject/StartNewSessionListener.java" binary="false">    
+    <position height="-1" width="-1" x="666" y="637"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="17" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.core.IArticleFailureResponse" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/core/IArticleFailureResponse.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="892" y="426"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="18" corner="BOTTOM_RIGHT" language="java" 
+    name="ro.zuvasoft.derdiedas.articlesubject.VibratorFailureResponse" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/articlesubject/VibratorFailureResponse.java" binary="false">    
+    <position height="-1" width="-1" x="516" y="723"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" 
+    name="ro.zuvasoft.derdiedas.articlesubject.ArticleSubjectController" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/articlesubject/ArticleSubjectController.java" binary="false">    
+    <position height="-1" width="-1" x="701" y="801"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="20" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.core.IArticleSubjectHandler" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/core/IArticleSubjectHandler.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1230" y="198"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <interface id="21" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.core.ISubjectContainer" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/core/ISubjectContainer.java" binary="false">    
+    <position height="-1" width="-1" x="1141" y="321"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </interface>  
+  <class id="22" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.core.LimitedQueue" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/core/LimitedQueue.java" binary="false">    
+    <position height="-1" width="-1" x="778" y="339"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="23" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.core.SubjectElement" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/core/SubjectElement.java" binary="false">    
+    <position height="-1" width="-1" x="934" y="334"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="24" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.communication.BootReceiver" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/communication/BootReceiver.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="778" y="102"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="25" corner="BOTTOM_RIGHT" language="java" name="android.content.BroadcastReceiver" project="derdiedas-app" 
+    file="D:/Work/Android SDK/platforms/android-15/android.jar" binary="true">    
+    <position height="-1" width="-1" x="773" y="12"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="26" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.communication.UpdateService" 
+    project="derdiedas-app" file="/derdiedas-app/src/ro/zuvasoft/derdiedas/communication/UpdateService.java" 
+    binary="false">    
+    <position height="52" width="165" x="686" y="169"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="27" corner="BOTTOM_RIGHT" language="java" 
+    name="ro.zuvasoft.derdiedas.communication.UpdateService.DbHandler" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/communication/UpdateService.java" binary="false">    
+    <position height="-1" width="-1" x="970" y="108"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <class id="28" corner="BOTTOM_RIGHT" language="java" name="ro.zuvasoft.derdiedas.MainActivity" project="derdiedas-app" 
+    file="/derdiedas-app/src/ro/zuvasoft/derdiedas/MainActivity.java" binary="false">    
+    <position height="-1" width="-1" x="334" y="390"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+      visibility="false">      
+      <attributes public="false" package="false" protected="false" private="false"/>      
+      <operations public="false" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <realization id="29">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <realization id="30">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="31">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <dependency id="32">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="33">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <generalization id="34">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <realization id="35">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="37">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="18"/>  
+  </dependency>  
+  <dependency id="38">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="39">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="40">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="16"/>  
+  </dependency>  
+  <realization id="42">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </realization>  
+  <dependency id="43">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="17"/>  
+  </dependency>  
+  <nesting id="44">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="27"/>  
+  </nesting>  
+  <dependency id="45">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <dependency id="46">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="22"/>  
+  </dependency>  
+  <realization id="47">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <dependency id="48">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="49">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="19"/>  
+  </dependency>  
+  <dependency id="50">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="51">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <generalization id="52">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <dependency id="53">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <realization id="55">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <dependency id="56">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="57">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="26"/>  
+  </dependency>  
+  <realization id="58">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="20"/>  
+  </realization>  
+  <dependency id="59">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <realization id="60">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="21"/>  
+  </realization>  
+  <dependency id="61">    
+    <end type="SOURCE" refId="26"/>    
+    <end type="TARGET" refId="23"/>  
+  </dependency>  
+  <realization id="62">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <classifier-display autosize="false" stereotype="true" package="true" initial-value="false" signature="false" 
+    visibility="false">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="false" multiplicity="false"/>
+</class-diagram>

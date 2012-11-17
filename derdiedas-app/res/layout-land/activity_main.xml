@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2" >
+
+        <TextView
+            android:id="@+id/counterView"
+            style="@style/ScoreText"
+            android:background="@drawable/score_background"
+            android:text="@string/textCounter" />
+
+        <ro.zuvasoft.derdiedas.graphics.DecoratedTextView
+            android:id="@+id/subjectView"
+            style="@style/SubjectText"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/counterView" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/derButton"
+            style="@style/ButtonText"
+            android:layout_weight="1"
+            android:background="@drawable/der_btn"
+            android:text="@string/textDer" />
+
+        <Button
+            android:id="@+id/dieButton"
+            style="@style/ButtonText"
+            android:layout_weight="1"
+            android:background="@drawable/die_btn"
+            android:text="@string/textDie" />
+
+        <Button
+            android:id="@+id/dasButton"
+            style="@style/ButtonText"
+            android:layout_weight="1"
+            android:background="@drawable/das_btn"
+            android:text="@string/textDas" />
+    </LinearLayout>
+
+</LinearLayout>

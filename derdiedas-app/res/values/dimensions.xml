@@ -1,0 +1,14 @@
+<resources>
+    <dimen name="paragrafGodzila">52sp</dimen>
+    <dimen name="paragraf1">26sp</dimen>
+    <dimen name="paragraf2">22sp</dimen>
+    <dimen name="paragraf3">20sp</dimen>
+    <dimen name="paragraf4">18sp</dimen>
+    <dimen name="paragraf5">16sp</dimen>
+    <dimen name="paragraf6">14sp</dimen>
+    <dimen name="standard_margin">3dp</dimen>
+    <dimen name="standard_padding">5dp</dimen>
+    <dimen name="thumb_up_width">20dp</dimen>
+    <dimen name="thumb_up_height">28dp</dimen>
+    <dimen name="thumb_text_space">9dp</dimen>
+</resources>

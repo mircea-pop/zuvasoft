@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ro.zuvasoft.derdiedas"
+    android:versionCode="1"
+    android:versionName="1.0.0-SNAPSHOT" >
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:debuggable="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/appName"
+        android:theme="@style/Theme.NoTitle" >
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|locale"
+            android:label="@string/titleActivityMain" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.PreferencesActivity"
+            android:description="@string/activity_pref_description"
+            android:icon="@drawable/ic_pref_icon"
+            android:label="@string/prefName"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="ro.zuvasoft.derdiedas.database.WordProvider"
+            android:authorities="ro.zuvasoft.derdiedas.articlesubjectdatabase" />
+
+        <receiver android:name="ro.zuvasoft.derdiedas.communication.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="ro.zuvasoft.derdiedas.communication.UpdateService"
+            android:enabled="true"
+            android:permission="de.derdiedas.UPDATE_SERVICE_PERMISSION" />
+    </application>
+
+</manifest>

@@ -1,0 +1,6 @@
+<resources>
+    <string name="textCounter">Maximum: %1$d \t Aktuell: %2$d</string>
+    <string name="titleWrongArticle">Falscher Artikel</string>
+    <string name="messageResult">Nein, nicht &lt;b>%1$s&lt;/b>. Der richtige Artikel ist &lt;b>%2$s&lt;/b>.</string>
+    <string name="messagePlayAgain">Nochmal spielen?</string>
+</resources>

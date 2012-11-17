@@ -1,0 +1,7 @@
+<resources>
+	<string name="textCounter">Maximum: %1$d \t Curent: %2$d</string>
+    <string name="titleWrongArticle">Articol gresit</string>
+    <string name="messageResult">Nu, nu este %1$s. Articolul corect este %2$s.</string>
+    <string name="messagePlayAgain">Joc nou</string>
+    <string name="prefName">Preferinte</string>
+</resources>
