@@ -28,7 +28,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View.OnClickListener;
+import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -58,6 +60,7 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 		Log.i(TAG, "onCreate started");
 		// the order of this line is important, here the db is filled first time
 		checkOrStartUpdateService();
+		getWindow().setFlags(LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
 
 		setContentView(R.layout.activity_main);
 
@@ -84,6 +87,22 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 				R.id.dasButton);
 
 		bindToUpdateService();
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+	    
+	    // If we've received a touch notification that the user has touched
+	    // outside the app, finish the activity.
+	    Log.i(TAG, "on touch outside");
+	    if (MotionEvent.ACTION_OUTSIDE == event.getAction()) {
+	      //finish();
+	        Log.i(TAG, "on touch outside: event action_outside");
+	      return true;
+	    }
+
+	    // Delegate everything else to Activity.
+	    return super.onTouchEvent(event);
 	}
 
 	public void bindToUpdateService()
@@ -158,6 +177,7 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 	protected void onPause()
 	{
 		super.onPause();
+		Log.i(TAG, "on pause");
 		updateService.removeSubjectQueueListener(this);
 		unbindService(this);
 
@@ -208,7 +228,7 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 	protected void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-		Log.e(TAG, "onsave instance state: outstate=" + outState);
+		Log.i(TAG, "onsave instance state: outstate=" + outState);
 		outState.putSerializable(Constants.COUNTER_OBJECT, counter);
 		outState.putString("test", "working");
 	}

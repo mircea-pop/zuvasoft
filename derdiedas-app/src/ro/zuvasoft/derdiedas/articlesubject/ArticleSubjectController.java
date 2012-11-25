@@ -20,141 +20,129 @@ import android.os.Vibrator;
 import android.text.Html;
 import android.widget.TextView;
 
-public class ArticleSubjectController implements IArticleSubjectListener, OnClickListener
-{
+public class ArticleSubjectController implements IArticleSubjectListener, OnClickListener {
 
-	private TextView subjectView;
-	private IArticleSubjectModel articleSubjectModel;
-	private ObjectAnimator oa;
-	private AlertDialog dialog;
-	private IArticleFailureResponse vibratorFailureResponse;
+    private final TextView subjectView;
+    private final IArticleSubjectModel articleSubjectModel;
+    private final ObjectAnimator oa;
+    private final AlertDialog dialog;
+    private final IArticleFailureResponse vibratorFailureResponse;
 
-	private List<IArticleFailureResponse> responses = new ArrayList<IArticleFailureResponse>();
+    private final List<IArticleFailureResponse> responses = new ArrayList<IArticleFailureResponse>();
+    private static final String TAG = "ro.zuvasoft.derdiedas.articlesubject.ArticleSubjectController";
 
-	public ArticleSubjectController(
-			Activity activity,
-			TextView subjectView,
-			IArticleSubjectModel articleSubjectModel)
-	{
-		this.subjectView = subjectView;
-		this.articleSubjectModel = articleSubjectModel;
-		articleSubjectModel.addArticleSubjectListener(this);
+    public ArticleSubjectController(Activity activity, TextView subjectView, IArticleSubjectModel articleSubjectModel) {
+        this.subjectView = subjectView;
+        this.articleSubjectModel = articleSubjectModel;
+        articleSubjectModel.addArticleSubjectListener(this);
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(subjectView.getContext());
-		builder.setTitle(R.string.titleWrongArticle).setPositiveButton(R.string.messagePlayAgain, this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(subjectView.getContext());
+        builder.setTitle(R.string.titleWrongArticle).setPositiveButton(R.string.messagePlayAgain, this);
 
-		dialog = builder.create();
-		dialog.setOwnerActivity(activity);
+        dialog = builder.create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
-		Vibrator vibrator = (Vibrator)activity.getSystemService(Context.VIBRATOR_SERVICE);
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+              closeDialog(dialog);
+            }
+        });
+        dialog.setOwnerActivity(activity);
 
-		vibratorFailureResponse = new VibratorFailureResponse(vibrator, 500);
+        Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
 
-		oa = ObjectAnimator.ofInt(subjectView, "ThumbAlpha", 255);
-		oa.setDuration(500);
-		oa.setRepeatCount(1);
-		oa.setRepeatMode(ValueAnimator.REVERSE);
-	}
+        vibratorFailureResponse = new VibratorFailureResponse(vibrator, 500);
 
-	public void addAnimatorListener(AnimatorListener animationListener)
-	{
-		oa.addListener(animationListener);
-	}
+        oa = ObjectAnimator.ofInt(subjectView, "ThumbAlpha", 255);
+        oa.setDuration(500);
+        oa.setRepeatCount(1);
+        oa.setRepeatMode(ValueAnimator.REVERSE);
+    }
 
-	private Resources getResources()
-	{
-		return subjectView.getResources();
-	}
+    public void addAnimatorListener(AnimatorListener animationListener) {
+        oa.addListener(animationListener);
+    }
 
-	public TextView getSubjectView()
-	{
-		return subjectView;
-	}
+    private Resources getResources() {
+        return subjectView.getResources();
+    }
 
-	public IArticleSubjectModel getArticleSubjectModel()
-	{
-		return articleSubjectModel;
-	}
+    public TextView getSubjectView() {
+        return subjectView;
+    }
 
-	public void addArticleFailureResponse(IArticleFailureResponse articleFailureResponse)
-	{
+    public IArticleSubjectModel getArticleSubjectModel() {
+        return articleSubjectModel;
+    }
 
-		if (!responses.contains(articleFailureResponse) && articleFailureResponse != null)
-		{
-			responses.add(articleFailureResponse);
-		}
-	}
+    public void addArticleFailureResponse(IArticleFailureResponse articleFailureResponse) {
 
-	private void displayFailure()
-	{
-		vibratorFailureResponse.executeFailureResponse();
+        if (!responses.contains(articleFailureResponse) && articleFailureResponse != null) {
+            responses.add(articleFailureResponse);
+        }
+    }
 
-		IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
-		Article chosenArticle = articleSubjectModel.getChosenArticle();
+    private void displayFailure() {
+        vibratorFailureResponse.executeFailureResponse();
 
-		dialog.setMessage(Html.fromHtml(getResources().getString(
-				R.string.messageResult,
-				chosenArticle.getDisplayValue(),
-				getCorrectArticlesString())));
-		dialog.show();
-	}
+        IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
+        Article chosenArticle = articleSubjectModel.getChosenArticle();
 
-	private void displaySuccess()
-	{
-		oa.start();
-	}
+        dialog.setMessage(Html.fromHtml(getResources().getString(R.string.messageResult, chosenArticle.getDisplayValue(),
+                getCorrectArticlesString())));
+        dialog.show();
+    }
 
-	private String getCorrectArticlesString()
-	{
-		IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
-		String retval = "";
-		for (Article article : articleSubjectModel.getCorrectArticles())
-		{
-			retval += article.getDisplayValue() + " ";
-		}
+    private void displaySuccess() {
+        oa.start();
+    }
 
-		return retval;
-	}
+    private String getCorrectArticlesString() {
+        IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
+        String retval = "";
+        for (Article article : articleSubjectModel.getCorrectArticles()) {
+            retval += article.getDisplayValue() + " ";
+        }
 
-	@Override
-	public void onChosenArticleChanged(IArticleSubjectModel source, Article newArticle)
-	{
-		if (oa.isRunning())
-		{
-			oa.cancel();
-		}
+        return retval;
+    }
 
-		String subjectText = "";
-		IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
-		if (articleSubjectModel.isCorrectArticle())
-		{
-			subjectText += getCorrectArticlesString();
-			getSubjectView().setText(subjectText + articleSubjectModel.getSubject());
-			displaySuccess();
-		}
-		else
-		{
-			displayFailure();
-		}
-	}
+    @Override
+    public void onChosenArticleChanged(IArticleSubjectModel source, Article newArticle) {
+        if (oa.isRunning()) {
+            oa.cancel();
+        }
 
-	@Override
-	public void onSessionChanged(
-			IArticleSubjectModel source,
-			String newSubject,
-			Article[] newCorrectArticles)
-	{
-		getSubjectView().setText(newSubject);
-	}
+        String subjectText = "";
+        IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
+        if (articleSubjectModel.isCorrectArticle()) {
+            subjectText += getCorrectArticlesString();
+            getSubjectView().setText(subjectText + articleSubjectModel.getSubject());
+            displaySuccess();
+        } else {
+            displayFailure();
+        }
+    }
 
-	@Override
-	public void onClick(DialogInterface dialog, int which)
-	{
-		dialog.dismiss();
+    @Override
+    public void onSessionChanged(IArticleSubjectModel source, String newSubject, Article[] newCorrectArticles) {
+        getSubjectView().setText(newSubject);
+    }
 
-		for (IArticleFailureResponse response : responses)
-		{
-			response.executeFailureResponse();
-		}
-	}
+    /**
+     * This should be called to close the dialog window.
+     * @param dialog
+     */
+    private void closeDialog(DialogInterface dialog) {
+        dialog.dismiss();
+
+        for (IArticleFailureResponse response : responses) {
+            response.executeFailureResponse();
+        }
+    }
+
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        closeDialog(dialog);
+    }
 }
