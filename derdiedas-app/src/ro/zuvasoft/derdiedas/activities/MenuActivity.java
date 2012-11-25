@@ -8,7 +8,6 @@ package ro.zuvasoft.derdiedas.activities;
 import ro.zuvasoft.derdiedas.R;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,7 +17,7 @@ import android.view.MenuItem;
  * 
  * @author mIRCEA
  */
-public class MenuActivity extends Activity
+public abstract class MenuActivity extends Activity
 {
 
 	@Override
@@ -40,8 +39,15 @@ public class MenuActivity extends Activity
 
 				return true;
 			}
+			case R.id.resetCounter :
+			{
+			    resetCounter();
+			    return true;
+			}
 			default :
 				return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	public abstract void resetCounter();
 }

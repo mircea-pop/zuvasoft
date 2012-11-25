@@ -23,5 +23,6 @@
     <string name="activity_create_description">Creates a new user or logs in an existing one</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_create">Create User</string>
+    <string name="resetCounterName">Reset</string>
 
 </resources>

@@ -12,8 +12,8 @@ public class CounterController implements ICounterListener,
 		IArticleSubjectListener, IArticleFailureResponse
 {
 
-	private TextView counterView;
-	private ICounter counter;
+	private final TextView counterView;
+	private final ICounter counter;
 
 	public CounterController(TextView counterView, ICounter counter)
 	{
@@ -72,6 +72,6 @@ public class CounterController implements ICounterListener,
 	@Override
 	public void executeFailureResponse()
 	{
-		counter.resetCurrent();
+		//counter.resetCurrent();
 	}
 }

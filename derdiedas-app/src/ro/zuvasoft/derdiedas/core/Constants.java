@@ -77,4 +77,5 @@ public interface Constants
 	public static final String CONTENT_PROVIDER_KEY_ID = "_id";
 	public static final String CONTENT_PROVIDER_KEY_SUBJECT_VALUE_COLUMN = "SUBJECT_VALUE_COLUMN";
 	public static final String CONTENT_PROVIDER_KEY_CORRECT_ARTICLES_COLUMN = "CORRECT_ARTICLES_COLUMN";
+    public static final String PREF_FILE = "pref";
 }

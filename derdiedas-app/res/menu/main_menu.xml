@@ -4,4 +4,8 @@
           android:icon="@drawable/ic_pref_icon"
           android:title="@string/prefName"
           android:showAsAction="ifRoom"/>
+    <item android:id="@+id/resetCounter"
+          android:icon="@drawable/ic_action_reset_counter"
+          android:title="@string/resetCounterName"
+          android:showAsAction="ifRoom"/>
 </menu>

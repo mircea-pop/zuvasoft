@@ -34,239 +34,195 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends MenuActivity implements ServiceConnection, ISubjectQueueListener
-{
+public class MainActivity extends MenuActivity implements ServiceConnection, ISubjectQueueListener {
+    private static final String TAG = "DerDieDasMainActivity";
 
-	private static final String PREF_FILE = "pref";
+    private ICounter counter;
+    PropertyChangeSupport mainPropChangeSupport = new PropertyChangeSupport(this);
 
-	private static final String SAVED_MAX_SCORE = "savedMaxScore";
-	private static final String SAVED_CURRENT_SCORE = "savedCurrentScore";
+    private ArticleSubjectController articleSubjectController;
 
-	private static final String TAG = "DerDieDasMainActivity";
+    private IArticleSubjectModel das;
 
-	private ICounter counter;
-	PropertyChangeSupport mainPropChangeSupport = new PropertyChangeSupport(this);
+    private UpdateService updateService;
 
-	private ArticleSubjectController articleSubjectController;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate started");
+        // the order of this line is important, here the db is filled first time
+        checkOrStartUpdateService();
+        getWindow().setFlags(LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
 
-	private IArticleSubjectModel das;
+        setContentView(R.layout.activity_main);
 
-	private UpdateService updateService;
+        initCounter(savedInstanceState);
+        updateCounterView();
 
-	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		Log.i(TAG, "onCreate started");
-		// the order of this line is important, here the db is filled first time
-		checkOrStartUpdateService();
-		getWindow().setFlags(LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+        CounterController counterController = new CounterController(getCounterView(), counter);
+        counter.addCounterListener(counterController);
+        counterController.updateCounterView();
 
-		setContentView(R.layout.activity_main);
+        das = new StatefullArticleSubjectModel(new DefaultArticleSubjectModel());
 
-		initCounter(savedInstanceState);
-		updateCounterView();
+        das.addArticleSubjectListener(counterController);
 
-		CounterController counterController = new CounterController(getCounterView(), counter);
-		counter.addCounterListener(counterController);
-		counterController.updateCounterView();
+        TextView subjectView = getSubjectView();
+        articleSubjectController = new ArticleSubjectController(this, subjectView, das);
 
-		das = new StatefullArticleSubjectModel(new DefaultArticleSubjectModel());
+        articleSubjectController.addArticleFailureResponse(counterController);
 
-		das.addArticleSubjectListener(counterController);
+        addClickListeners(new ArticleButtonListener(das), R.id.derButton, R.id.dieButton, R.id.dasButton);
 
-		TextView subjectView = getSubjectView();
-		articleSubjectController = new ArticleSubjectController(this, subjectView, das);
+        bindToUpdateService();
+    }
 
-		articleSubjectController.addArticleFailureResponse(counterController);
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
 
-		addClickListeners(
-				new ArticleButtonListener(das),
-				R.id.derButton,
-				R.id.dieButton,
-				R.id.dasButton);
+        // If we've received a touch notification that the user has touched
+        // outside the app, finish the activity.
+        Log.i(TAG, "on touch outside");
+        if (MotionEvent.ACTION_OUTSIDE == event.getAction()) {
+            // finish();
+            Log.i(TAG, "on touch outside: event action_outside");
+            return true;
+        }
 
-		bindToUpdateService();
-	}
-	
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-	    
-	    // If we've received a touch notification that the user has touched
-	    // outside the app, finish the activity.
-	    Log.i(TAG, "on touch outside");
-	    if (MotionEvent.ACTION_OUTSIDE == event.getAction()) {
-	      //finish();
-	        Log.i(TAG, "on touch outside: event action_outside");
-	      return true;
-	    }
+        // Delegate everything else to Activity.
+        return super.onTouchEvent(event);
+    }
 
-	    // Delegate everything else to Activity.
-	    return super.onTouchEvent(event);
-	}
+    public void bindToUpdateService() {
+        Intent bindIntent = new Intent(this, UpdateService.class);
+        bindService(bindIntent, this, Context.BIND_AUTO_CREATE);
+    }
 
-	public void bindToUpdateService()
-	{
-		Intent bindIntent = new Intent(this, UpdateService.class);
-		bindService(bindIntent, this, Context.BIND_AUTO_CREATE);
-	}
+    private void checkOrStartUpdateService() {
+        if (!isUpdateServiceRunning()) {
+            startService(new Intent(this, UpdateService.class));
+        }
+    }
 
-	private void checkOrStartUpdateService()
-	{
-		if (!isUpdateServiceRunning())
-		{
-			startService(new Intent(this, UpdateService.class));
-		}
-	}
+    private boolean isUpdateServiceRunning() {
+        boolean retval = false;
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if ("ro.zuvasoft.derdiedas.communication.UpdateService".equals(service.service.getClassName())) {
+                retval = true;
+                break;
+            }
+        }
 
-	private boolean isUpdateServiceRunning()
-	{
-		boolean retval = false;
-		ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
-		for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
-		{
-			if ("ro.zuvasoft.derdiedas.communication.UpdateService"
-					.equals(service.service.getClassName()))
-			{
-				retval = true;
-				break;
-			}
-		}
+        return retval;
+    }
 
-		return retval;
-	}
+    private TextView getCounterView() {
+        TextView subjectView = (TextView) findViewById(R.id.counterView);
+        return subjectView;
+    }
 
-	private TextView getCounterView()
-	{
-		TextView subjectView = (TextView)findViewById(R.id.counterView);
-		return subjectView;
-	}
+    private TextView getSubjectView() {
+        TextView subjectView = (TextView) findViewById(R.id.subjectView);
+        return subjectView;
+    }
 
-	private TextView getSubjectView()
-	{
-		TextView subjectView = (TextView)findViewById(R.id.subjectView);
-		return subjectView;
-	}
+    private void addClickListeners(OnClickListener handler, int... ids) {
+        for (int id : ids) {
+            Button button = (Button) findViewById(id);
+            button.setOnClickListener(handler);
+        }
+    }
 
-	private void addClickListeners(OnClickListener handler, int... ids)
-	{
-		for (int id : ids)
-		{
-			Button button = (Button)findViewById(id);
-			button.setOnClickListener(handler);
-		}
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bindToUpdateService();
+        Log.i(TAG, "on resume");
+        // this is needed if the user doesn't press the dialog's button
+        // counter.resetCurrent();
+        // doTestOnBackground(new CounterTester(counter));
+    }
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		bindToUpdateService();
-		Log.i(TAG, "on resume");
-		// this is needed if the user doesn't press the dialog's button
-		// counter.resetCurrent();
-		// doTestOnBackground(new CounterTester(counter));
-	}
+    private void doTestOnBackground(CounterTester executable) {
+        CounterTester.testMe(counter);
+    }
 
-	private void doTestOnBackground(CounterTester executable)
-	{
-		CounterTester.testMe(counter);
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "on pause");
+        updateService.removeSubjectQueueListener(this);
+        unbindService(this);
 
-	@Override
-	protected void onPause()
-	{
-		super.onPause();
-		Log.i(TAG, "on pause");
-		updateService.removeSubjectQueueListener(this);
-		unbindService(this);
+        counter.save(this);
+    }
 
-		// save the data
-		SharedPreferences preferences = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
-		SharedPreferences.Editor editor = preferences.edit();
+    private void updateCounterView() {
+        Resources res = getResources();
+        String countText = res.getString(R.string.textCounter, counter.getMaximumCounted(), counter.getCounted());
+        TextView countView = (TextView) findViewById(R.id.counterView);
+        countView.setText(countText);
+    }
 
-		editor.putInt(SAVED_MAX_SCORE, counter.getMaximumCounted());
-		editor.putInt(SAVED_CURRENT_SCORE, counter.getCounted());
+    private void initCounter(Bundle savedInstanceState) {
+        // restore the saved pref data
+        SharedPreferences preferences = getSharedPreferences(Constants.PREF_FILE, 0);
 
-		// commit the edits
-		editor.commit();
+        if (savedInstanceState != null && savedInstanceState.containsKey(Constants.COUNTER_OBJECT)) {
+            counter = (ICounter) savedInstanceState.getSerializable(Constants.COUNTER_OBJECT);
+        } else {
+            // counter = new DefaultCounter();
 
-	}
+            counter = new DefaultCounter(preferences.getInt(ICounter.SAVED_CURRENT_SCORE, 0), preferences.getInt(ICounter.SAVED_MAX_SCORE,
+                    0));
+        }
 
-	private void updateCounterView()
-	{
-		Resources res = getResources();
-		String countText = res.getString(
-				R.string.textCounter,
-				counter.getMaximumCounted(),
-				counter.getCounted());
-		TextView countView = (TextView)findViewById(R.id.counterView);
-		countView.setText(countText);
-	}
+    }
 
-	private void initCounter(Bundle savedInstanceState)
-	{
-		// restore the saved pref data
-		SharedPreferences preferences = getSharedPreferences(PREF_FILE, 0);
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onsave instance state: outstate=" + outState);
+        outState.putSerializable(Constants.COUNTER_OBJECT, counter);
+        outState.putString("test", "working");
+    }
 
-		if (savedInstanceState != null && savedInstanceState.containsKey(Constants.COUNTER_OBJECT))
-		{
-			counter = (ICounter)savedInstanceState.getSerializable(Constants.COUNTER_OBJECT);
-		}
-		else
-		{
-			// counter = new DefaultCounter();
+    @Override
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        updateService = ((UpdateService.UpdateBinder) service).getService();
+        NewSessionStarter newSessionStarter = new NewSessionStarter(updateService, das);
+        articleSubjectController.addAnimatorListener(newSessionStarter);
+        articleSubjectController.addArticleFailureResponse(newSessionStarter);
+        updateService.addSubjectQueueListener(this);
 
-			counter = new DefaultCounter(preferences.getInt(SAVED_CURRENT_SCORE, 0), preferences.getInt(
-					SAVED_MAX_SCORE,
-					0));
-		}
+        if (!updateService.isQueueEmpty()) {
+            newSessionStarter.startNewSession();
+        }
+    }
 
-	}
+    @Override
+    public void onServiceDisconnected(ComponentName name) {
+    }
 
-	@Override
-	protected void onSaveInstanceState(Bundle outState)
-	{
-		super.onSaveInstanceState(outState);
-		Log.i(TAG, "onsave instance state: outstate=" + outState);
-		outState.putSerializable(Constants.COUNTER_OBJECT, counter);
-		outState.putString("test", "working");
-	}
+    @Override
+    public void onQueueFilled(final ISubjectContainer subjectContainer) {
+        runOnUiThread(new Runnable() {
 
-	@Override
-	public void onServiceConnected(ComponentName name, IBinder service)
-	{
-		updateService = ((UpdateService.UpdateBinder)service).getService();
-		NewSessionStarter newSessionStarter = new NewSessionStarter(updateService, das);
-		articleSubjectController.addAnimatorListener(newSessionStarter);
-		articleSubjectController.addArticleFailureResponse(newSessionStarter);
-		updateService.addSubjectQueueListener(this);
-		
-		if (!updateService.isQueueEmpty())
-		{
-			newSessionStarter.startNewSession();
-		}
-	}
+            @Override
+            public void run() {
+                Log.i(TAG, "onQueueFilled: starting a new session");
+                NewSessionStarter newSessionStarter = new NewSessionStarter(subjectContainer, das);
+                newSessionStarter.startNewSession();
+            }
+        });
+        Thread.yield();
+    }
 
-	@Override
-	public void onServiceDisconnected(ComponentName name)
-	{
-	}
-
-	@Override
-	public void onQueueFilled(final ISubjectContainer subjectContainer)
-	{
-		runOnUiThread(new Runnable()
-		{
-
-			@Override
-			public void run()
-			{
-				Log.i(TAG, "onQueueFilled: starting a new session");
-				NewSessionStarter newSessionStarter = new NewSessionStarter(subjectContainer, das);
-				newSessionStarter.startNewSession();
-			}
-		});
-		Thread.yield();
-	}
+    @Override
+    public void resetCounter() {
+        if (null != counter) {
+            counter.resetAll(this);
+        }
+    }
 }
