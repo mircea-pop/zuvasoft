@@ -110,12 +110,12 @@ public class DefaultCounter implements ICounter {
         resetHard();
         save(context);
     }
-    
+
     private void resetHard() {
         this.countValue = 0;
-//        this.maximumCounted = 0;
+        this.maximumCounted = 0;
         this.offset = 0;
         notifyCurrentValueChanged(countValue);
-//        notifyMaxValueChanged(maximumCounted);
+        notifyMaxValueChanged(maximumCounted);
     }
 }
