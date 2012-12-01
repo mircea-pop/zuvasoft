@@ -22,7 +22,6 @@ import android.view.MenuItem;
  */
 public abstract class MenuActivity extends Activity {
     private AlertDialog resetDialog;
-    private static final String TAG = "MenuActivity";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

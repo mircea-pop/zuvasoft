@@ -85,7 +85,6 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
         Log.i(TAG, "on touch outside");
         if (MotionEvent.ACTION_OUTSIDE == event.getAction()) {
             // finish();
-            Log.i(TAG, "on touch outside: event action_outside");
             return true;
         }
 
@@ -138,7 +137,6 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
     protected void onResume() {
         super.onResume();
         bindToUpdateService();
-        Log.i(TAG, "on resume");
         // this is needed if the user doesn't press the dialog's button
         // counter.resetCurrent();
         // doTestOnBackground(new CounterTester(counter));
@@ -151,7 +149,6 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "on pause");
         updateService.removeSubjectQueueListener(this);
         unbindService(this);
 
@@ -183,7 +180,6 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.i(TAG, "onsave instance state: outstate=" + outState);
         outState.putSerializable(Constants.COUNTER_OBJECT, counter);
         outState.putString("test", "working");
     }
@@ -211,7 +207,6 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 
             @Override
             public void run() {
-                Log.i(TAG, "onQueueFilled: starting a new session");
                 NewSessionStarter newSessionStarter = new NewSessionStarter(subjectContainer, das);
                 newSessionStarter.startNewSession();
             }
