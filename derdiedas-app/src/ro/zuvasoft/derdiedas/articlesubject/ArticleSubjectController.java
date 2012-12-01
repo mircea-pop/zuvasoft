@@ -36,27 +36,42 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
         this.articleSubjectModel = articleSubjectModel;
         articleSubjectModel.addArticleSubjectListener(this);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(subjectView.getContext());
+        dialog = createFailureDialog(activity, subjectView.getContext());
+
+        vibratorFailureResponse = createVibratorResponse(activity);
+
+        oa = createAnimator(subjectView);
+    }
+
+    private ObjectAnimator createAnimator(Object target) {
+        ObjectAnimator oa = ObjectAnimator.ofInt(target, "ThumbAlpha", 255);
+        oa.setDuration(500);
+        oa.setRepeatCount(1);
+        oa.setRepeatMode(ValueAnimator.REVERSE);
+        return oa;
+    }
+
+    private IArticleFailureResponse createVibratorResponse(Activity activity) {
+        Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+
+        return new VibratorFailureResponse(vibrator, 500);
+    }
+
+    private AlertDialog createFailureDialog(Activity activity, Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.titleWrongArticle).setPositiveButton(R.string.messagePlayAgain, this);
 
-        dialog = builder.create();
+        AlertDialog dialog = builder.create();
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
             @Override
             public void onDismiss(DialogInterface dialog) {
-              closeDialog(dialog);
+                closeDialog(dialog);
             }
         });
         dialog.setOwnerActivity(activity);
 
-        Vibrator vibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-
-        vibratorFailureResponse = new VibratorFailureResponse(vibrator, 500);
-
-        oa = ObjectAnimator.ofInt(subjectView, "ThumbAlpha", 255);
-        oa.setDuration(500);
-        oa.setRepeatCount(1);
-        oa.setRepeatMode(ValueAnimator.REVERSE);
+        return dialog;
     }
 
     public void addAnimatorListener(AnimatorListener animationListener) {
@@ -85,12 +100,18 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
     private void displayFailure() {
         vibratorFailureResponse.executeFailureResponse();
 
+        tryAgain();
+
         IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
         Article chosenArticle = articleSubjectModel.getChosenArticle();
 
         dialog.setMessage(Html.fromHtml(getResources().getString(R.string.messageResult, chosenArticle.getDisplayValue(),
                 getCorrectArticlesString())));
         dialog.show();
+    }
+
+    private void tryAgain() {
+        // invalidate chosen button.
     }
 
     private void displaySuccess() {
@@ -131,6 +152,7 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
 
     /**
      * This should be called to close the dialog window.
+     * 
      * @param dialog
      */
     private void closeDialog(DialogInterface dialog) {

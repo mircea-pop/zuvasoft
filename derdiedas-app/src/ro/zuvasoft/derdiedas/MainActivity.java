@@ -42,7 +42,7 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 
     private ArticleSubjectController articleSubjectController;
 
-    private IArticleSubjectModel das;
+    private IArticleSubjectModel articleSubjModel;
 
     private UpdateService updateService;
 
@@ -63,16 +63,16 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
         counter.addCounterListener(counterController);
         counterController.updateCounterView();
 
-        das = new StatefullArticleSubjectModel(new DefaultArticleSubjectModel());
+        articleSubjModel = new StatefullArticleSubjectModel(new DefaultArticleSubjectModel());
 
-        das.addArticleSubjectListener(counterController);
+        articleSubjModel.addArticleSubjectListener(counterController);
 
         TextView subjectView = getSubjectView();
-        articleSubjectController = new ArticleSubjectController(this, subjectView, das);
+        articleSubjectController = new ArticleSubjectController(this, subjectView, articleSubjModel);
 
         articleSubjectController.addArticleFailureResponse(counterController);
 
-        addClickListeners(new ArticleButtonListener(das), R.id.derButton, R.id.dieButton, R.id.dasButton);
+        addClickListeners(new ArticleButtonListener(articleSubjModel), R.id.derButton, R.id.dieButton, R.id.dasButton);
 
         bindToUpdateService();
     }
@@ -187,7 +187,7 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         updateService = ((UpdateService.UpdateBinder) service).getService();
-        NewSessionStarter newSessionStarter = new NewSessionStarter(updateService, das);
+        NewSessionStarter newSessionStarter = new NewSessionStarter(updateService, articleSubjModel);
         articleSubjectController.addAnimatorListener(newSessionStarter);
         articleSubjectController.addArticleFailureResponse(newSessionStarter);
         updateService.addSubjectQueueListener(this);
@@ -207,7 +207,7 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 
             @Override
             public void run() {
-                NewSessionStarter newSessionStarter = new NewSessionStarter(subjectContainer, das);
+                NewSessionStarter newSessionStarter = new NewSessionStarter(subjectContainer, articleSubjModel);
                 newSessionStarter.startNewSession();
             }
         });
