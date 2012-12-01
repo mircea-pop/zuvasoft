@@ -1,22 +1,26 @@
 package ro.zuvasoft.derdiedas.articlesubject;
 
-import ro.zuvasoft.derdiedas.core.IArticleSubjectListener;
 import ro.zuvasoft.derdiedas.core.Constants.Article;
+import ro.zuvasoft.derdiedas.core.IArticleSubjectListener;
 
 public class StatefullArticleSubjectModel implements IArticleSubjectModel
 {
 
 	enum State
 	{
-		CHOOSING_ARTICLE, SUBJECT_CHANGED;
+		CHOOSING_ARTICLE, SUBJECT_CHANGED, RETRY;
 
 		public boolean isSubjectChanged()
 		{
 			return this.equals(SUBJECT_CHANGED);
 		}
+		
+		public boolean isRetry(){
+		    return this.equals(RETRY);
+		}
 	}
 
-	private IArticleSubjectModel targetModel;
+	private final IArticleSubjectModel targetModel;
 	private State currentState = State.SUBJECT_CHANGED;
 
 	public StatefullArticleSubjectModel(IArticleSubjectModel targetModel)
@@ -40,7 +44,7 @@ public class StatefullArticleSubjectModel implements IArticleSubjectModel
 	@Override
 	public void setChosenArticle(Article article)
 	{
-		if (currentState.isSubjectChanged())
+	//	if (currentState.isSubjectChanged() || currentState.isRetry())
 		{
 			targetModel.setChosenArticle(article);
 			currentState = State.CHOOSING_ARTICLE;

@@ -191,7 +191,7 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
         articleSubjectController.addAnimatorListener(newSessionStarter);
         articleSubjectController.addArticleFailureResponse(newSessionStarter);
         updateService.addSubjectQueueListener(this);
-
+        
         if (!updateService.isQueueEmpty()) {
             newSessionStarter.startNewSession();
         }

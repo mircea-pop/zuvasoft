@@ -27,9 +27,11 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
     private final ObjectAnimator oa;
     private final AlertDialog dialog;
     private final IArticleFailureResponse vibratorFailureResponse;
+    private final ButtonController buttonController;
 
     private final List<IArticleFailureResponse> responses = new ArrayList<IArticleFailureResponse>();
-    private static final String TAG = "ro.zuvasoft.derdiedas.articlesubject.ArticleSubjectController";
+    private boolean alreadyTried;
+    private static final String TAG = "articlesubject.ArticleSubjectController";
 
     public ArticleSubjectController(Activity activity, TextView subjectView, IArticleSubjectModel articleSubjectModel) {
         this.subjectView = subjectView;
@@ -41,6 +43,8 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
         vibratorFailureResponse = createVibratorResponse(activity);
 
         oa = createAnimator(subjectView);
+        
+        buttonController = new ButtonController(activity);
     }
 
     private ObjectAnimator createAnimator(Object target) {
@@ -97,25 +101,31 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
         }
     }
 
-    private void displayFailure() {
+    private void handleFailure() {
         vibratorFailureResponse.executeFailureResponse();
-
-        tryAgain();
 
         IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
         Article chosenArticle = articleSubjectModel.getChosenArticle();
+        
+        if (!alreadyTried) {
+            tryAgain(chosenArticle);
+        } else {
 
-        dialog.setMessage(Html.fromHtml(getResources().getString(R.string.messageResult, chosenArticle.getDisplayValue(),
-                getCorrectArticlesString())));
-        dialog.show();
+            dialog.setMessage(Html.fromHtml(getResources().getString(R.string.messageResult, chosenArticle.getDisplayValue(),
+                    getCorrectArticlesString())));
+            dialog.show();
+        }
     }
 
-    private void tryAgain() {
-        // invalidate chosen button.
+    private void tryAgain(Article chosenArticle) {
+        alreadyTried = true;
+        buttonController.disable(chosenArticle);
     }
 
     private void displaySuccess() {
         oa.start();
+        alreadyTried = false;
+        buttonController.enableAll();
     }
 
     private String getCorrectArticlesString() {
@@ -141,7 +151,7 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
             getSubjectView().setText(subjectText + articleSubjectModel.getSubject());
             displaySuccess();
         } else {
-            displayFailure();
+            handleFailure();
         }
     }
 
@@ -157,7 +167,7 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
      */
     private void closeDialog(DialogInterface dialog) {
         dialog.dismiss();
-
+        buttonController.enableAll();
         for (IArticleFailureResponse response : responses) {
             response.executeFailureResponse();
         }
