@@ -29,5 +29,6 @@
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="checkbox_tryAgain">Try Again(get 2 chances to guess the article)</string>
 
 </resources>

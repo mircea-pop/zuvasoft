@@ -27,7 +27,6 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View.OnClickListener;
 import android.view.WindowManager.LayoutParams;
@@ -49,7 +48,6 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate started");
         // the order of this line is important, here the db is filled first time
         checkOrStartUpdateService();
         getWindow().setFlags(LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
@@ -82,7 +80,6 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 
         // If we've received a touch notification that the user has touched
         // outside the app, finish the activity.
-        Log.i(TAG, "on touch outside");
         if (MotionEvent.ACTION_OUTSIDE == event.getAction()) {
             // finish();
             return true;
@@ -164,13 +161,11 @@ public class MainActivity extends MenuActivity implements ServiceConnection, ISu
 
     private void initCounter(Bundle savedInstanceState) {
         // restore the saved pref data
-        SharedPreferences preferences = getSharedPreferences(Constants.PREF_FILE, 0);
+        SharedPreferences preferences = getSharedPreferences(Constants.PREF_FILE, Context.MODE_PRIVATE);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(Constants.COUNTER_OBJECT)) {
             counter = (ICounter) savedInstanceState.getSerializable(Constants.COUNTER_OBJECT);
         } else {
-            // counter = new DefaultCounter();
-
             counter = new DefaultCounter(preferences.getInt(ICounter.SAVED_CURRENT_SCORE, 0), preferences.getInt(ICounter.SAVED_MAX_SCORE,
                     0));
         }

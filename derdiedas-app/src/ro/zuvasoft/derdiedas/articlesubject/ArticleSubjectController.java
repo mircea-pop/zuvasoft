@@ -7,6 +7,7 @@ import ro.zuvasoft.derdiedas.R;
 import ro.zuvasoft.derdiedas.core.Constants.Article;
 import ro.zuvasoft.derdiedas.core.IArticleFailureResponse;
 import ro.zuvasoft.derdiedas.core.IArticleSubjectListener;
+import ro.zuvasoft.derdiedas.pref.Preferences;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -28,6 +29,7 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
     private final AlertDialog dialog;
     private final IArticleFailureResponse vibratorFailureResponse;
     private final ButtonController buttonController;
+    private final Preferences pref;
 
     private final List<IArticleFailureResponse> responses = new ArrayList<IArticleFailureResponse>();
     private boolean alreadyTried;
@@ -43,8 +45,10 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
         vibratorFailureResponse = createVibratorResponse(activity);
 
         oa = createAnimator(subjectView);
-        
+
         buttonController = new ButtonController(activity);
+
+        pref = new Preferences(activity);
     }
 
     private ObjectAnimator createAnimator(Object target) {
@@ -106,8 +110,8 @@ public class ArticleSubjectController implements IArticleSubjectListener, OnClic
 
         IArticleSubjectModel articleSubjectModel = getArticleSubjectModel();
         Article chosenArticle = articleSubjectModel.getChosenArticle();
-        
-        if (!alreadyTried) {
+
+        if (pref.isTryAgain() && !alreadyTried) {
             tryAgain(chosenArticle);
         } else {
 

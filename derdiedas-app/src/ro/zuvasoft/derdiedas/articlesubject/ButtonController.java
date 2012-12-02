@@ -25,13 +25,13 @@ public class ButtonController {
     }
 
     public void enableAll() {
-       for (Button button : buttons) {
-        button.setEnabled(true);
-    }
+        for (Button button : buttons) {
+            button.setEnabled(true);
+        }
     }
 
     public void disable(Article article) {
-       findButton(article.getDisplayValue()).setEnabled(false);
+        findButton(article.getDisplayValue()).setEnabled(false);
     }
 
     private Button findButton(String text) {

@@ -5,7 +5,7 @@
           android:title="@string/prefName"
           android:showAsAction="ifRoom"/>
     <item android:id="@+id/resetCounter"
-          android:icon="@drawable/ic_action_reset_counter"
+          android:icon="@drawable/ic_action_reset_score"
           android:title="@string/resetCounterName"
           android:showAsAction="ifRoom"/>
 </menu>
