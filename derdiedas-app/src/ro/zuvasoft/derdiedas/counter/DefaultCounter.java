@@ -52,7 +52,7 @@ public class DefaultCounter implements ICounter {
 
     @Override
     public void resetCurrent() {
-        countValue = offset;
+        countValue = 0;
         notifyCurrentValueChanged(countValue);
     }
 

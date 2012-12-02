@@ -72,6 +72,6 @@ public class CounterController implements ICounterListener,
 	@Override
 	public void executeFailureResponse()
 	{
-		//counter.resetCurrent();
+		counter.resetCurrent();
 	}
 }
